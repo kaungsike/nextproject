@@ -1,9 +1,14 @@
+
+import { NavBar } from '@/components/NavBar'
 import React from 'react'
 
-const layout = () => {
+const Layout = ({children} : Readonly < {children : React.ReactNode}>) => {
   return (
-    <div>layout</div>
+    <main className='container mx-auto px-4'>
+      <NavBar/>
+      {children}
+    </main>
   )
 }
 
-export default layout
+export default Layout
