@@ -1,8 +1,8 @@
-"use client";
+"use server";
 
-import * as React from "react";
 import Link from "next/link";
-
+import Image from "next/image";
+import { auth } from "@/auth";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,52 +10,42 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Image from "next/image";
-import { auth } from "@/auth";
+import LoginButton from "./client/LoginButton";
+import UserAvatar from "./client/UserAvatar";
+import Container from "./Container";
 
 export async function NavBar() {
   const session = await auth();
 
   return (
-    <>
-      <div className="w-full flex items-center justify-between">
-        <div>
-          <Image
-            src={"/ks-logo.jpg"}
-            alt="Picture of the author"
-            width={50}
-            height={50}
-          />
-        </div>
-        <NavigationMenu viewport={false}>
+    <Container>
+      <div className="w-full flex items-center justify-between lg:p-2 p-1">
+        <Image src={"/ks-logo.jpg"} alt="Logo" width={50} height={50} />
+
+        <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link href="/">
-                  {session && session?.user ? (
-                    <>
-                      <p>Is exit</p>
-                    </>
-                  ) : (
-                    <p>Is not</p>
-                  )}
-                </Link>
+                <Link href="/">Home</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+
             <NavigationMenuItem>
-              <NavigationMenuLink
-                asChild
-                className={navigationMenuTriggerStyle()}
-              >
-                <Link href="/docs">Docs</Link>
-              </NavigationMenuLink>
+              {session?.user ? (
+                <UserAvatar
+                  image={session.user.image || ""}
+                  name={session.user.name || "User"}
+                />
+              ) : (
+                <LoginButton />
+              )}
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-      </div>
-    </>
+      </div>{" "}
+    </Container>
   );
 }
