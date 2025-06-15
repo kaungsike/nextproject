@@ -1,20 +1,38 @@
+"use client";
+import { useStartUpStore } from "@/store/useStartUpStore";
 import React from "react";
-import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 
-const SearchForm = () => {
+type Inputs = {
+  example: string;
+  exampleRequired: string;
+};
 
-    console.log("from what?")
+const SearchForm = ({ query }: { query?: string }) => {
+  const {
+    register,
+    reset,
+    handleSubmit,
+  } = useForm<Inputs>();
+
+  const {setStartUp} = useStartUpStore();
+
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    setStartUp(data.example);
+    reset();
+  };
 
   return (
-<form action="/search" method="GET" className="mt-5">
-  <Input
-    name="query"
-    type="search"
-    placeholder="Search Startups"
-    className="bg-white rounded-full border-none text-black h-[50px] max-w-[400px] w-full mx-auto"
-  />
-</form>
-
+    <form onSubmit={handleSubmit(submitForm)} className="mt-5 w-full flex justify-center">
+      <input
+        className="bg-white rounded-full focus:outline-0 border-2 border-black text-black h-[50px] max-w-[400px] w-full px-5"
+        defaultValue={query ?? ""}
+        {...register("example")}
+        type="search"
+        placeholder="Search Startups"
+      />
+    </form>
   );
 };
 

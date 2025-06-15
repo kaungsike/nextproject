@@ -2,7 +2,9 @@ import React from "react";
 import Container from "./Container";
 import SearchForm from "./SearchForm";
 
-const SubHeader = () => {
+const SubHeader = ({ searchParams }: { searchParams?: { query?: string } }) => {
+  const query = searchParams?.query || "";
+
   return (
     <div className="bg-[var(--only-me)] text-white py-8">
       <Container>
@@ -11,7 +13,12 @@ const SubHeader = () => {
           <br />
           Connect With Entrepreneur
         </h2>
-        <SearchForm/>
+        <p className="text-center mt-3 font-bold lg:text-lg text-sm">
+          Submit ideas, Vote on Pitches, <br className="lg:hidden block" /> and
+          Get Noticed in <br className="hidden lg:block" /> Virtual
+          Competitions.
+        </p>
+        <SearchForm query={query} />
       </Container>
     </div>
   );

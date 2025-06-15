@@ -82,6 +82,7 @@
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --only-me : oklch(0.645 0.246 16.439);
+  --hover-me : oklch(80.223% 0.07309 18.734);
   --card: oklch(0.21 0.006 285.885);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
