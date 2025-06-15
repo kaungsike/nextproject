@@ -13,6 +13,7 @@ import { LuEye } from "react-icons/lu";
 import Avatar from "react-avatar";
 import Link from "next/link";
 
+
 const StartUpCard = ({ post }: { post: any }) => {
   return (
     <Card className="w-full max-w-sm gap-2.5 hover:bg-rose-200 border-2 hover:border-2 hover:border-[var(--only-me)] transition-colors duration-200 border-black">
