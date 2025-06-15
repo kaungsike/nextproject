@@ -1,26 +1,33 @@
 import { create } from "zustand";
 
-type Post = {
-  id: string | number;
-  title?: string;
-  description?: string;
-};
+export interface Post {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  _createdAt: string;
+  views: number;
+  author: {
+    name: string;
+    image?: string;
+  };
+}
 
-type PostsStore = {
+interface PostsState {
   posts: Post[];
-  setPosts: (posts: Post[]) => void;        // replaces entire posts array
-  setPost: (post: Post) => void;             // adds or updates a single post
-};
+  setPosts: (posts: Post[]) => void;
+  setPost: (post: Post) => void;  // Add setPost to interface
+}
 
-const usePostsStore = create<PostsStore>((set) => ({
+const usePostsStore = create<PostsState>((set) => ({
   posts: [],
   setPosts: (posts) => set({ posts }),
   setPost: (post) =>
     set((state) => {
-      const exists = state.posts.find((p) => p.id === post.id);
+      const exists = state.posts.find((p) => p._id === post._id); // use _id consistently
       if (exists) {
         return {
-          posts: state.posts.map((p) => (p.id === post.id ? post : p)),
+          posts: state.posts.map((p) => (p._id === post._id ? post : p)),
         };
       } else {
         return { posts: [...state.posts, post] };

@@ -12,9 +12,12 @@ import {
 import { LuEye } from "react-icons/lu";
 import Avatar from "react-avatar";
 import Link from "next/link";
+import Image from "next/image";
+import { Post } from "@/store/usePostsStore";
 
 
-const StartUpCard = ({ post }: { post: any }) => {
+
+const StartUpCard = ({ post }: { post: Post }) => {
   return (
     <Card className="w-full max-w-sm gap-2.5 hover:bg-rose-200 border-2 hover:border-2 hover:border-[var(--only-me)] transition-colors duration-200 border-black">
       <CardHeader>
@@ -29,7 +32,13 @@ const StartUpCard = ({ post }: { post: any }) => {
         </div>
 
         <div className="rounded-md max-h-[200px] overflow-hidden mt-2">
-          <img src={post.image} alt={post.title} className="w-full" />
+          {post.image ? (
+            <Image src={post.image} alt={post.title} width={500} height={500} />
+          ) : (
+            <div className="bg-gray-200 w-full h-[200px] flex items-center justify-center">
+              No Image
+            </div>
+          )}
         </div>
       </CardHeader>
 
@@ -47,12 +56,11 @@ const StartUpCard = ({ post }: { post: any }) => {
           <p className="text-nowrap flex items-center gap-1">
             <LuEye className="text-[var(--only-me)]" /> {post.views}
           </p>
-          <Link href={`/startup/${post.id}`}>
-          <Button className="bg-[var(--only-me)]">Details</Button>
+          <Link href={`/startup/${post._id}`}>
+            <Button className="bg-[var(--only-me)]">Details</Button>
           </Link>
         </div>
       </CardFooter>
-
     </Card>
   );
 };
