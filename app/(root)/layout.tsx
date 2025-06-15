@@ -1,14 +1,16 @@
-
-import { NavBar } from '@/components/NavBar'
 import React from 'react'
+import { NavBar } from '@/components/NavBar'
+import { LiveProviderWrapper } from '@/components/LiveProviderWrapper'
 
-const Layout = ({children} : Readonly < {children : React.ReactNode}>) => {
+const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <main className=''>
-        <NavBar/>
-      {children}
+    <main>
+      <NavBar />
+      <LiveProviderWrapper>
+        {children}
+      </LiveProviderWrapper>
     </main>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

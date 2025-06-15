@@ -3,6 +3,7 @@ import { create } from "zustand";
 export interface Post {
   _id: string;
   title: string;
+  category: string;
   description: string;
   image: string;
   _createdAt: string;

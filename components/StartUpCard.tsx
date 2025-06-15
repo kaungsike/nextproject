@@ -15,20 +15,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Post } from "@/store/usePostsStore";
 
-
-
 const StartUpCard = ({ post }: { post: Post }) => {
   return (
     <Card className="w-full max-w-sm gap-2.5 hover:bg-rose-200 border-2 hover:border-2 hover:border-[var(--only-me)] transition-colors duration-200 border-black">
       <CardHeader>
-        <div className="flex items-center gap-3">
-          <Avatar
-            src={post.author.image}
-            name={post.author.name}
-            size="40"
-            round
-          />{" "}
-          <p className="text-black font-bold text-lg">{post.author.name}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Avatar
+              src={post.author.image}
+              name={post.author.name}
+              size="40"
+              round
+            />{" "}
+            <p className="text-black font-bold text-lg">{post.author.name}</p>
+          </div>
+          <p className="font-bold">{post.category}</p>
         </div>
 
         <div className="rounded-md max-h-[200px] overflow-hidden mt-2">

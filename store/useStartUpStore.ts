@@ -3,12 +3,13 @@
 import { create } from 'zustand';
 
 type StartUpState = {
-  startUp : string;
-  setStartUp: (value: string) => void;
+  startUp: string | null;
+  setStartUp: (value: string | null) => void;
+  resetStartUp: () => void;
 };
 
 export const useStartUpStore = create<StartUpState>((set) => ({
-  startUp: '',
+  startUp: null,
   setStartUp: (value) => set({ startUp: value }),
-  resetStartUp: () => set({ startUp: '' }), 
+  resetStartUp: () => set({ startUp: null }),
 }));
