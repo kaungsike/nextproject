@@ -1,20 +1,31 @@
 import { create } from "zustand";
 
-const usePostsStore = create(() => ({
-    posts: [{
-        id : 1,
-        title: "test",
-        description : "this is a description...",
-        image : "https://images.unsplash.com/photo-1715514918422-3bde21134880?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        category : "Robots",
-        author : {
-            id : 1,
-            name : "John Doe",
-            image : "",},
-        views : 100,
-        createdAt : new Date(),
-    }],
+type Post = {
+  id: string | number;
+  title?: string;
+  description?: string;
+};
 
-}))
+type PostsStore = {
+  posts: Post[];
+  setPosts: (posts: Post[]) => void;        // replaces entire posts array
+  setPost: (post: Post) => void;             // adds or updates a single post
+};
+
+const usePostsStore = create<PostsStore>((set) => ({
+  posts: [],
+  setPosts: (posts) => set({ posts }),
+  setPost: (post) =>
+    set((state) => {
+      const exists = state.posts.find((p) => p.id === post.id);
+      if (exists) {
+        return {
+          posts: state.posts.map((p) => (p.id === post.id ? post : p)),
+        };
+      } else {
+        return { posts: [...state.posts, post] };
+      }
+    }),
+}));
 
 export default usePostsStore;
