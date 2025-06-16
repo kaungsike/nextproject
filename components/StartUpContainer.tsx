@@ -11,10 +11,10 @@ import { RxCross2 } from "react-icons/rx";
 import StartUpCardSkeleton from "./StartUpCardSkeleton";
 
 const StartUpContainer = () => {
-  const { startUp, resetStartUp } = useStartUpStore(); // e.g., Zustand string
+  const { startUp, resetStartUp } = useStartUpStore();
   const { posts, setPosts } = usePostsStore();
 
-  const query = getStartupsQuery(startUp); // 🔄 dynamic query
+  const query = getStartupsQuery(startUp);
   const [data, loading] = useLiveQuery(posts, query);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const StartUpContainer = () => {
       setPosts(data);
     }
   }, [data, setPosts]);
+
 
   return (
     <div className="pt-7">
