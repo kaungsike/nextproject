@@ -10,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { signOut } from "next-auth/react";
+import { Button } from "../ui/button";
 
 export default function UserAvatar({ name,image }: { name: string , image: string }) {
   return(
@@ -29,9 +31,9 @@ export default function UserAvatar({ name,image }: { name: string , image: strin
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-        </DropdownMenuItem>
+          <Button onClick={() => signOut({ callbackUrl: "/" })} className="w-full flex justify-start hover:text-red-500 bg-white hover:bg-white text-black">
+            Log out
+          </Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

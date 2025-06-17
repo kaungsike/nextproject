@@ -27,7 +27,7 @@ const View = async ({ id }: { id: string }) => {
 
   <Button className="w-[80px] hover:bg-white bg-white text-black border border-[var(--only-me)]">
     {post.views !== null
-      ? (post.views > 1 ? "Views: " : "View: ") + post.views
+      ? (post.views > 1 ? "Views : " : "View : ") + post.views
       : "Loading..."}
   </Button>
 </div>
