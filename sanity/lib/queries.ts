@@ -35,3 +35,9 @@ export const STARTUP_BY_ID_QUERY = `
     pitch
   }
 `;
+
+export const STARTUP_VIEW_BY_ID_QUERY = `
+  *[_type == "startup" && _id == $id][0] {
+    views,
+  }
+`;
