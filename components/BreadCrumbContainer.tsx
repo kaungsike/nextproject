@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Container from "./Container";
-const BreadCrumbContainer = ({currentPage,parentPage} : {currentPage : string,parentPage : string}) => {
+const BreadCrumbContainer = ({currentPage,parentPage} : {currentPage : string,parentPage? : string}) => {
   return (
     <Container>
       <Breadcrumb>
@@ -16,10 +16,14 @@ const BreadCrumbContainer = ({currentPage,parentPage} : {currentPage : string,pa
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href={parentPage}>{parentPage}</BreadcrumbLink>
-          </BreadcrumbItem>
+          {parentPage && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/startups">{parentPage}</BreadcrumbLink>
+              </BreadcrumbItem>
+            </>
+          )}
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>{currentPage}</BreadcrumbPage>

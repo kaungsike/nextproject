@@ -34,6 +34,15 @@ export async function NavBar() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href="/startup/create">Create</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
               {session?.user ? (
                 <UserAvatar
                   image={session.user.image || ""}

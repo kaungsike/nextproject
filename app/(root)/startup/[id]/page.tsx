@@ -7,7 +7,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="mt-5">
-      <BreadCrumbContainer currentPage="Startup Detail" parentPage="Startups" />
+      <BreadCrumbContainer currentPage="Startup Detail"/>
       <StartupDetailContainer id={id} />
     </div>
   );
