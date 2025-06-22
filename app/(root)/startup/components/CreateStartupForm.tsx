@@ -3,29 +3,53 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import MDEditor from "@uiw/react-md-editor";
 import { Pinwheel } from "ldrs/react";
 import "ldrs/react/Pinwheel.css";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormInputs = {
-  email: string;
-  companyName: string;
-  website: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  pitch: string;
 };
 
 const CreateStartupForm = () => {
-  const [pitch, setPitch] = React.useState<string | undefined>();
-
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
+    trigger,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormInputs>();
 
+  const pitch = watch("pitch", "");
+
+  useEffect(() => {
+    register("pitch", {
+      required: "Pitch is required",
+      minLength: {
+        value: 10,
+        message: "Pitch must be at least 10 characters long",
+      },
+    });
+  }, [register]);
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     console.log({ ...data, pitch });
+    reset({
+      title: "",
+      description: "",
+      category: "",
+      image: "",
+      pitch: "",
+    });
   };
 
   return (
@@ -33,43 +57,82 @@ const CreateStartupForm = () => {
       <div className="flex flex-col items-center justify-center gap-5 w-full max-w-[600px] mx-auto">
         {/* Email Field */}
         <div className="grid w-full gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="title">Title</Label>
           <Input
-            id="email"
-            type="email"
-            placeholder="your@email.com"
-            {...register("email", { required: "Email is required" })}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* Company Name */}
-        <div className="grid w-full gap-2">
-          <Label htmlFor="companyName">Company Name</Label>
-          <Input
-            id="companyName"
-            placeholder="Awesome Startup Inc."
-            {...register("companyName", {
-              required: "Company name is required",
+            id="title"
+            type="text"
+            placeholder="Startup Idea Title"
+            {...register("title", {
+              required: "Title is required",
+              maxLength: {
+                value: 100,
+                message: "Title must be at most 100 characters long",
+              },
+              minLength: {
+                value: 5,
+                message: "Title must be at least 5 characters long",
+              },
             })}
           />
-          {errors.companyName && (
-            <p className="text-red-500 text-sm">{errors.companyName.message}</p>
+          {errors.title && (
+            <p className="text-red-500 text-sm">{errors.title.message}</p>
           )}
         </div>
 
-        {/* Website */}
+        {/* Description */}
         <div className="grid w-full gap-2">
-          <Label htmlFor="website">Website</Label>
-          <Input
-            id="website"
-            placeholder="https://startup.com"
-            {...register("website", { required: "Website is required" })}
+          <Label htmlFor="description">Description</Label>
+          <Textarea
+            id="description"
+            placeholder="Briefly describe your startup idea."
+            {...register("description", {
+              required: "description is required",
+              minLength: {
+                value: 10,
+                message: "Description must be at least 10 characters long",
+              },
+            })}
           />
-          {errors.website && (
-            <p className="text-red-500 text-sm">{errors.website.message}</p>
+          {errors.description && (
+            <p className="text-red-500 text-sm">{errors.description.message}</p>
+          )}
+        </div>
+        {/* Category */}
+        <div className="grid w-full gap-2">
+          <Label htmlFor="title">Category</Label>
+          <Input
+            id="category"
+            type="text"
+            placeholder="Startup Idea Title"
+            {...register("category", {
+              required: "category is required",
+              minLength: {
+                value: 5,
+                message: "category must be at least 5 characters long",
+              },
+            })}
+          />
+          {errors.category && (
+            <p className="text-red-500 text-sm">{errors.category.message}</p>
+          )}
+        </div>
+        {/* Image URL */}
+        <div className="grid w-full gap-2">
+          <Label htmlFor="image">Image URL</Label>
+          <Input
+            id="image"
+            type="text"
+            placeholder="Startup Image URL"
+            {...register("image", {
+              required: "Image URL is required",
+              validate: (value) =>
+                /^https?:\/\/[^ "]+$/i.test(value)
+                  ? true
+                  : "Only valid external image URLs starting with http/https are allowed",
+            })}
+          />
+          {errors.image && (
+            <p className="text-red-500 text-sm">{errors.image.message}</p>
           )}
         </div>
 
@@ -79,7 +142,10 @@ const CreateStartupForm = () => {
           <MDEditor
             data-color-mode="light"
             value={pitch}
-            onChange={setPitch}
+            onChange={(val) => {
+              setValue("pitch", val || "");
+              trigger("pitch");
+            }}
             preview="edit"
             style={{ overflow: "hidden" }}
             height={300}
@@ -91,6 +157,9 @@ const CreateStartupForm = () => {
               disallowedElements: ["style"],
             }}
           />
+          {errors.pitch && (
+            <p className="text-red-500 text-sm">{errors.pitch.message}</p>
+          )}
         </div>
 
         <Button type="submit">
