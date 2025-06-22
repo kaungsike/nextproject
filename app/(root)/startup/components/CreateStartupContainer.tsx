@@ -1,6 +1,7 @@
 
 import Container from "@/components/Container";
 import React from "react";
+import CreateStartupForm from "./CreateStartupForm";
 
 const CreateStartupContainer = () => {
   return (
@@ -14,6 +15,11 @@ const CreateStartupContainer = () => {
             {new Date().toISOString().split("T")[0]}
           </p>
 
+        </Container>
+      </div>
+      <div>
+        <Container>
+          <CreateStartupForm/>
         </Container>
       </div>
     </>

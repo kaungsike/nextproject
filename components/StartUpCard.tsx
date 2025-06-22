@@ -17,7 +17,7 @@ import { Post } from "@/store/usePostsStore";
 
 const StartUpCard = ({ post }: { post: Post }) => {
   return (
-    <Card className="w-full max-w-sm gap-2.5 hover:bg-rose-200 border-2 hover:border-2 hover:border-[var(--only-me)] transition-colors duration-200 border-black">
+    <Card className="w-full max-w-sm gap-2.5 hover:bg-blue-200 border-2 hover:border-2 hover:border-[var(--only-me)] transition-colors duration-200 border-black">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
